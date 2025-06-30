@@ -1,0 +1,33 @@
+
+.profileImg img {
+  border: 2px solid #fff;
+  padding: 3px;
+  background-color: #333;
+}
+.hover-effect:hover {
+  background-color: rgba(255, 255, 255, 0.304);
+  transition: background-color 0.2s ease;
+}
+
+/* Ensure Sidebar doesn't cause scroll issues on mobile */
+.sidebar-wrapper {
+  width: 250px;
+  flex-shrink: 0;
+  background-color: #003049;
+  overflow: hidden; /* hides internal scroll */
+  height: 100vh;     /* full height on large screens */
+}
+
+
+@media (max-width: 768px) {
+  .sidebar-wrapper {
+    display: none;
+  }
+}
+/* Sidebar fixed layout on large screens */
+.sidebar-fixed {
+   width: 250px;
+  background-color: #003049;
+  height: 100%;         /* not vh-100, just inherit */
+  overflow: hidden;     /* no scroll in sidebar */
+}

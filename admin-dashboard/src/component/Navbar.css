@@ -1,0 +1,13 @@
+input.form-control:focus {
+  border-color: #66d9ef;
+  box-shadow: 0 0 0 0.2rem rgba(102, 217, 239, 0.25);
+}
+@media (max-width: 576px) {
+  .navbar .form-control {
+    font-size: 0.9rem;
+  }
+
+  .navbar button {
+    width: 100%;
+  }
+}
