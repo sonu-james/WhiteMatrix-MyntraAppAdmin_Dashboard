@@ -7,7 +7,7 @@ const RevenueChart = ({ data, title }) => {
   return (
     <div className="card shadow-sm mb-4">
       <div className="card-body">
-        <h5 className="card-title">{title}</h5>
+        <h6 className="card-title">{title}</h6>
         <ResponsiveContainer width="100%" height={250}>
           <LineChart data={data}>
             <CartesianGrid stroke="#ccc" />
