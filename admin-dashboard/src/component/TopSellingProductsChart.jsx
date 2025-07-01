@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
+import { getTopSellingCategoriesApi } from '../services/allApi';
 
-const TopSellingProductsChart = ({ data, title }) => {
+const TopSellingProductsChart = () => {
+  const [topSellingCategory, setTopSellingCategory] = useState([])
+  const getTopSellingCategory = async( )=>{
+    const result = await getTopSellingCategoriesApi()
+    console.log(result.data);
+    setTopSellingCategory(result.data)
+  }
+  useEffect(()=>{
+    getTopSellingCategory()
+  },[])
   return (
     <div className="card shadow-sm mb-4">
       <div className="card-body">
-        <h6 className="card-title">{title}</h6>
+        <h6 className="card-title">Top Selling Category</h6>
         <ResponsiveContainer width="100%" height={250}>
           <BarChart
             layout="vertical"
-            data={data}
+            data={topSellingCategory}
             margin={{ top: 20, right: 30, left: 40, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
