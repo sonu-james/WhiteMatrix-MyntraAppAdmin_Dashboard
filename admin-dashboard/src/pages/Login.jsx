@@ -5,6 +5,7 @@ import { Col, Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { loginApi } from '../services/allApi'
 
 
 function Login() {
@@ -15,16 +16,49 @@ function Login() {
 
     })
     // console.log(loginDetails);
-    const handleLogin = () => {
-        const { email, password } = loginDetails;
-        if (email === 'admin@example.com' && password === 'admin123') {
-            sessionStorage.setItem('emailData', email);
-            sessionStorage.setItem('passwordData', password);
-            toast.success('Login successful');
-            navigate('/dashboard');
-        }
-        // …
-    };
+
+  const handleLogin = async () => {
+    const { email, password } = loginDetails
+    if (!email || !password) {
+      toast.info('plz fill the form completely')
+    }
+    else {
+      const result = await loginApi({ email, password })
+      console.log(result);
+      if (result.status == 200) {
+        toast.success('login successfully')
+        sessionStorage.setItem('existingUser', JSON.stringify(result.data.existingUser))
+        sessionStorage.setItem('token', result.data.token)
+        setLoginDetails({
+          username: "",
+          email: "",
+          password: ""
+        })
+        setTimeout(() => {
+          navigate('/dashboard')
+        }, 3000)
+
+      }
+      else {
+        toast.error(result.response.data)
+      }
+    }
+
+  }
+
+
+
+
+    // const handleLogin = () => {
+    //     const { email, password } = loginDetails;
+    //     if (email === 'admin@example.com' && password === 'admin123') {
+    //         sessionStorage.setItem('emailData', email);
+    //         sessionStorage.setItem('passwordData', password);
+    //         toast.success('Login successful');
+    //         navigate('/dashboard');
+    //     }
+    //     // …
+    // };
 
     return (
         <>
