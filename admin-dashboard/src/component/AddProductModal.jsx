@@ -160,22 +160,32 @@ const reqHeader = {
 try {
   const result = await addProductApi(reqBody, reqHeader);
 
-  if (result?.status === 200 || result?.data?.success) {
-    toast.success('✅ Product uploaded successfully!');
-    resetForm(); // Clear form fields
-    handleClose(); // Close modal
+  // Check for success via HTTP status or success flag
+  const isSuccess = result?.status === 200 || result?.data?.success === true;
+
+  if (isSuccess) {
+    toast.success(result?.data?.message || '✅ Product uploaded successfully!');
+    resetForm();     // Clear form inputs
+    handleClose();   // Close modal
   } else {
+    const message = result?.data?.message || '❌ Failed to add product.';
     console.warn('Unexpected API response:', result);
-    toast.error(result?.data?.message || '❌ Failed to add product.');
+    toast.error(message);
   }
 } catch (err) {
+  // Log the full error object for debugging
   console.error('API error:', err);
+
   const errorMessage =
-    err?.response?.data?.message || err.message || '❌ Upload failed.';
+    err?.response?.data?.message ||
+    err?.message ||
+    '❌ Upload failed due to an unexpected error.';
+    
   toast.error(errorMessage);
 } finally {
-  setUploadProgress(0);
+  setUploadProgress(0); // Reset upload progress bar
 }
+
 
   };
 

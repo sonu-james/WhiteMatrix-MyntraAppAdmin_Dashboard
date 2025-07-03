@@ -5,7 +5,8 @@ import {
   FaBox,
   FaShoppingCart,
   FaUsers,
-  FaTachometerAlt
+  FaTachometerAlt,
+  FaAd
 } from 'react-icons/fa';
 import './Sidebar.css';
 
@@ -63,6 +64,12 @@ const Sidebar1 = () => {
               <FaUsers className="me-2" />
               Users
             </Link>
+            <li className="nav-item mb-2">
+            <Link to="/admanager" className="nav-link text-white px-2 py-2 rounded hover-effect">
+             <FaAd className="me-2" />
+              Ad Manager
+            </Link>
+          </li>
           </li>
         </ul>
       </div>

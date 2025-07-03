@@ -7,6 +7,7 @@ import Orders from '../pages/Orders';
 import Users from '../pages/Users';
 import Sidebar1 from './Sidebar1';
 import Navbar from './Navbar';
+import AdManager from '../pages/AdManager';
 
 function MainLayout() {
   const location = useLocation();
@@ -33,6 +34,7 @@ function MainLayout() {
             <Route path="/products" element={<Products />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/users" element={<Users />} />
+             <Route path="/admanager" element={<AdManager/>} />
           </Routes>
         </main>
       </div>

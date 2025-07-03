@@ -56,3 +56,17 @@ export const getMonthlyRevenueApi = async()=>{
 export const getWeeklyRevenueApi = async()=>{
     return await commonApi('GET',`${serverUrl}/admin/getWeeklyRevenue`,"","")
 }
+
+//to add new ads
+export const addAdApi = async (reqBody, reqHeader) => {
+  return await commonApi('POST', `${serverUrl}/add-ads`, reqBody, reqHeader);
+};
+//get all ads
+export const getAllAdsApi=async(reqHeader)=>{
+  return await commonApi('GET',`${serverUrl}/get-ads-admin`,"",reqHeader)
+}
+//delete ads
+export const deleteAdApi=async(id)=>{
+  return await commonApi('DELETE',`${serverUrl}/delete-ad/${id}`,{},"")
+}
+
