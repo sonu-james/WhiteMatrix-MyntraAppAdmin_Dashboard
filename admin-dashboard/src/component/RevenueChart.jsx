@@ -6,16 +6,19 @@ import { getMonthlyRevenueApi, getWeeklyRevenueApi } from '../services/allApi';
 
 const RevenueChart = () => {
   const [monthlyRevenue, setMonthlyRevenue] = useState([])
-  const getMonthlyRevenue = async()=>{
-    const result = await getMonthlyRevenueApi()
-   console.log(result);
-    setMonthlyRevenue(result.data)
-  }
   const getWeeklyRevenue = async()=>{
-    const result = await getWeeklyRevenueApi()
-   console.log(result);
+    if(sessionStorage.getItem("token")){
+      const token = sessionStorage.getItem("token")
+      
+      const reqHeader = {
+       "Content-Type":"application/json",
+        "Authorization":`Bearer ${token}`
+      }
+ 
+    const result = await getWeeklyRevenueApi(reqHeader)
+  // console.log(result);
     setMonthlyRevenue(result.data)
-  }
+  }}
   useEffect(()=>{
 getWeeklyRevenue();
   },[])

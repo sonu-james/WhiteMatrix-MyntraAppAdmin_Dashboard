@@ -7,9 +7,19 @@ import { getTopSellingCategoriesApi } from '../services/allApi';
 const TopSellingProductsChart = () => {
   const [topSellingCategory, setTopSellingCategory] = useState([])
   const getTopSellingCategory = async( )=>{
-    const result = await getTopSellingCategoriesApi()
+    if(sessionStorage.getItem("token")){
+      const token = sessionStorage.getItem("token")
+      console.log(token);
+      
+      const reqHeader = {
+       "Content-Type":"application/json",
+        "Authorization":`Bearer ${token}`
+      }
+ 
+    const result = await getTopSellingCategoriesApi(reqHeader)
     console.log(result.data);
     setTopSellingCategory(result.data)
+    }
   }
   useEffect(()=>{
     getTopSellingCategory()

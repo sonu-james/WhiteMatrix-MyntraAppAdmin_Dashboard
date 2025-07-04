@@ -12,7 +12,16 @@ const OverViewCards = ({ data }) => {
 
   const getAllOrders = async () => {
   try {
-    const result = await getAllOrdersApi();
+    if(sessionStorage.getItem("token")){
+      const token = sessionStorage.getItem("token")
+      console.log(token);
+      
+      const reqHeader = {
+       "Content-Type":"application/json",
+        "Authorization":`Bearer ${token}`
+      }
+ 
+    const result = await getAllOrdersApi(reqHeader);
     const fetchedOrders = result.data.orders || [];
     
     setOrders(fetchedOrders);
@@ -21,28 +30,44 @@ const OverViewCards = ({ data }) => {
     // Calculate total sales
     const total = fetchedOrders.reduce((sum, order) => sum + (order.totalAmount || 0), 0);
     setTotalSales(total);
-
+    }
   } catch (err) {
     console.error('Error fetching orders:', err);
   }
 };
 const getAllUsersCount = async () => {
   try {
-    const result = await getAllUsersCountApi();    
+    if(sessionStorage.getItem("token")){
+      const token = sessionStorage.getItem("token")      
+      const reqHeader = {
+       "Content-Type":"application/json",
+        "Authorization":`Bearer ${token}`
+      }
+ 
+    const result = await getAllUsersCountApi(reqHeader);    
     setTotalUser(result.data.totalNonAdminUsers);
  
-    
+    }
   } catch (err) {
     console.error('Error fetching orders:', err);
   }
 };
 const getAllProducts = async()=>{
   try {
-    const result = await getAllProductsApi();
+    if(sessionStorage.getItem("token")){
+      const token = sessionStorage.getItem("token")
+      console.log(token);
+      
+      const reqHeader = {
+       "Content-Type":"application/json",
+        "Authorization":`Bearer ${token}`
+      }
+ 
+    const result = await getAllProductsApi(reqHeader);
     const fetchedProducts = result.data || [];
     setTotalProducts(fetchedProducts.length); 
 
-    
+    } 
   } catch (err) {
     console.error('Error fetching orders:', err);
   }

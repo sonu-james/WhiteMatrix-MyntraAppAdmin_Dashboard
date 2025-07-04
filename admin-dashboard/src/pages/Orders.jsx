@@ -23,8 +23,18 @@ const Orders = () => {
 
   const getAllOrders = async () => {
     try {
-      const result = await getAllOrdersApi();
-      setOrders(result.data.orders || []);
+      if(sessionStorage.getItem("token")){
+      const token = sessionStorage.getItem("token")
+      console.log(token);
+      
+      const reqHeader = {
+       "Content-Type":"application/json",
+        "Authorization":`Bearer ${token}`
+      }
+      const result = await getAllOrdersApi(reqHeader);
+      setOrders(result.data.orders || []);}
+      console.log(result);
+      
     } catch (err) {
       console.error('Error fetching orders:', err);
     }
@@ -42,14 +52,23 @@ useEffect(() => {
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      const result = await updateOrderStatus({ newStatus }, orderId);
+ if(sessionStorage.getItem("token")){
+      const token = sessionStorage.getItem("token")
+      console.log(token);
+      
+      const reqHeader = {
+       "Content-Type":"application/json",
+        "Authorization":`Bearer ${token}`
+      }
+     
+      const result = await updateOrderStatus({ newStatus }, orderId, reqHeader);
       if (result.status === 200) {
         const updated = orders.map((o) =>
           o._id === orderId ? { ...o, status: newStatus } : o
         );
         setOrders(updated);
         getAllOrders(); // optional: refetch
-      }
+      }}
     } catch (err) {
       console.error(err);
     }
